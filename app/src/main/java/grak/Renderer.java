@@ -14,7 +14,7 @@ public class Renderer {
     private static final double DEFAULT_Z_FAR = 100;
     private static final int SCREEN_WIDTH = 1280;
     private static final int SCREEN_HEIGHT = 720;
-    private static final double ASPECT_RATIO = SCREEN_WIDTH / SCREEN_HEIGHT;
+    private static final double ASPECT_RATIO = (double)SCREEN_WIDTH / SCREEN_HEIGHT;
     private static final double MIN_FOV = Math.toRadians(10);
     private static final double MAX_FOV = Math.toRadians(120);
     private static final double ZOOM_INCREMENT = Math.toRadians(2);
