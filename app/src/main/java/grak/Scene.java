@@ -19,8 +19,8 @@ public class Scene {
 
     private Scene() {
         shapes = List.of(
-            new Line(0.9, 0, 0, 0.9, 0, 10),
-            new Line(-0.9, 0, 0, -0.9, 0, 10),
+            new Line(0.9, 0, 0.9, 0.9, 0, 5),
+            new Line(-0.9, 0, 0.9, -0.9, 0, 5),
             new Cuboid(1, 0, 1, 2, -1, 2),
             new Cuboid(-1, 0, 1, -2, -3, 2),
             new Cuboid(1, 0, 2.1, 2, -2, 4.1),
