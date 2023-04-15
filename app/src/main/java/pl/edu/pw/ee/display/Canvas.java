@@ -1,4 +1,4 @@
-package grak.canvas;
+package pl.edu.pw.ee.display;
 //HIDE
 //OUT canvas.png
 import java.awt.image.BufferedImage;
@@ -17,15 +17,15 @@ import javax.swing.JOptionPane;
 
 public class Canvas
 {
-    private static Canvas canvas = new Canvas();
+    private static Canvas instance = null;
 
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
     private BufferedImage background;
     private JFrame frame;
     private CanvasComponent component;
 
-    private static final int MIN_X = 1280;
-    private static final int MIN_Y = 720;
+    private static final int MIN_X = DisplaySize.WIDTH;
+    private static final int MIN_Y = DisplaySize.HEIGHT;
     private static final int MARGIN = 0;
     private static final int LOCATION_OFFSET = 120;
 
@@ -110,8 +110,15 @@ public class Canvas
 
     public static Canvas getInstance()
     {
-        canvas.frame.setVisible(true); // In case it was closed in BlueJ
-        return canvas;
+        if (instance == null) {
+            synchronized(Canvas.class) {
+                if (instance == null) {
+                    instance = new Canvas();
+                }
+            }
+        }
+        instance.frame.setVisible(true); // In case it was closed in BlueJ
+        return instance;
     }
 
     public void clear() {

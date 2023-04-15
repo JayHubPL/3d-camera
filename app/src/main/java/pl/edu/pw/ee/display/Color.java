@@ -1,4 +1,4 @@
-package grak.canvas;
+package pl.edu.pw.ee.display;
 //HIDE
 public class Color
 {

@@ -1,4 +1,4 @@
-package grak.canvas;
+package pl.edu.pw.ee.display;
 //HIDE
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;

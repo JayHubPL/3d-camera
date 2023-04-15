@@ -1,17 +1,22 @@
-package grak;
+package pl.edu.pw.ee.controls;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 
-public class KeyboardControl {
-    
+import pl.edu.pw.ee.Renderer;
+import pl.edu.pw.ee.Scene;
+import pl.edu.pw.ee.math.versors.Direction;
+import pl.edu.pw.ee.math.versors.Rotation;
+
+public class CameraControl {
+
     private static volatile boolean wPressed = false;
     private static volatile boolean aPressed = false;
     private static volatile boolean sPressed = false;
     private static volatile boolean dPressed = false;
-    private static volatile boolean shiftPressed = false;
-    private static volatile boolean controlPressed = false;
+    private static volatile boolean ePressed = false;
+    private static volatile boolean qPressed = false;
     private static volatile boolean iPressed = false;
     private static volatile boolean kPressed = false;
     private static volatile boolean jPressed = false;
@@ -21,12 +26,25 @@ public class KeyboardControl {
     private static volatile boolean rPressed = false;
     private static volatile boolean fPressed = false;
 
-    static {
+    private static CameraControl instance = null;
+
+    public static CameraControl getInstance() {
+        if (instance == null) {
+            synchronized(CameraControl.class) {
+                if (instance == null) {
+                    instance = new CameraControl();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private CameraControl() {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 
             @Override
             public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-                synchronized (KeyboardControl.class) {
+                synchronized (CameraControl.class) {
                     switch (keyEvent.getID()) {
                         case KeyEvent.KEY_PRESSED:
                             switch (keyEvent.getKeyCode()) {
@@ -34,8 +52,8 @@ public class KeyboardControl {
                                 case KeyEvent.VK_A -> aPressed = true;
                                 case KeyEvent.VK_S -> sPressed = true;
                                 case KeyEvent.VK_D -> dPressed = true;
-                                case KeyEvent.VK_SHIFT -> shiftPressed = true;
-                                case KeyEvent.VK_CONTROL -> controlPressed = true;
+                                case KeyEvent.VK_E -> ePressed = true;
+                                case KeyEvent.VK_Q -> qPressed = true;
                                 case KeyEvent.VK_I -> iPressed = true;
                                 case KeyEvent.VK_K -> kPressed = true;
                                 case KeyEvent.VK_J -> jPressed = true;
@@ -52,8 +70,8 @@ public class KeyboardControl {
                                 case KeyEvent.VK_A -> aPressed = false;
                                 case KeyEvent.VK_S -> sPressed = false;
                                 case KeyEvent.VK_D -> dPressed = false;
-                                case KeyEvent.VK_SHIFT -> shiftPressed = false;
-                                case KeyEvent.VK_CONTROL -> controlPressed = false;
+                                case KeyEvent.VK_E -> ePressed = false;
+                                case KeyEvent.VK_Q -> qPressed = false;
                                 case KeyEvent.VK_I -> iPressed = false;
                                 case KeyEvent.VK_K -> kPressed = false;
                                 case KeyEvent.VK_J -> jPressed = false;
@@ -71,88 +89,41 @@ public class KeyboardControl {
             
         });
     }
-
-    public static boolean isWPressed() {
-        synchronized (KeyboardControl.class) {
-            return wPressed;
-        }
-    }
-
-    public static boolean isAPressed() {
-        synchronized (KeyboardControl.class) {
-            return aPressed;
-        }
-    }
-
-    public static boolean isSPressed() {
-        synchronized (KeyboardControl.class) {
-            return sPressed;
-        }
-    }
-
-    public static boolean isDPressed() {
-        synchronized (KeyboardControl.class) {
-            return dPressed;
-        }
-    }
-
-    public static boolean isShiftPressed() {
-        synchronized (KeyboardControl.class) {
-            return shiftPressed;
-        }
-    }
-
-    public static boolean isControlPressed() {
-        synchronized (KeyboardControl.class) {
-            return controlPressed;
-        }
-    }
-
-    public static boolean isIPressed() {
-        synchronized (KeyboardControl.class) {
-            return iPressed;
-        }
-    }
-
-    public static boolean isKPressed() {
-        synchronized (KeyboardControl.class) {
-            return kPressed;
-        }
-    }
-
-    public static boolean isJPressed() {
-        synchronized (KeyboardControl.class) {
-            return jPressed;
-        }
-    }
-
-    public static boolean isLPressed() {
-        synchronized (KeyboardControl.class) {
-            return lPressed;
-        }
-    }
-
-    public static boolean isUPressed() {
-        synchronized (KeyboardControl.class) {
-            return uPressed;
-        }
-    }
-
-    public static boolean isOPressed() {
-        synchronized (KeyboardControl.class) {
-            return oPressed;
-        }
-    }
     
-    public static boolean isRPressed() {
-        synchronized (KeyboardControl.class) {
-            return rPressed;
-        }
-    }
-
-    public static boolean isFPressed() {
-        synchronized (KeyboardControl.class) {
-            return fPressed;
+    public boolean reactToControls() {
+        synchronized(CameraControl.class) {
+            if (wPressed) {
+                Scene.getInstance().translate(Direction.FORWARD);
+            } else if (aPressed) {
+                Scene.getInstance().translate(Direction.LEFT);
+            } else if (sPressed) {
+                Scene.getInstance().translate(Direction.BACKWARD);
+            } else if (dPressed) {
+                Scene.getInstance().translate(Direction.RIGHT);
+            } else if (ePressed) {
+                Scene.getInstance().translate(Direction.UPWARD);
+            } else if (qPressed) {
+                Scene.getInstance().translate(Direction.DOWNWARD);
+            } else if (iPressed) {
+                Scene.getInstance().rotate(Rotation.FORWARD);
+            } else if (kPressed) {
+                Scene.getInstance().rotate(Rotation.BACKWARD);
+            } else if (jPressed) {
+                Scene.getInstance().rotate(Rotation.LEFT);
+            } else if (lPressed) {
+                Scene.getInstance().rotate(Rotation.RIGHT);
+            } else if (uPressed) {
+                Scene.getInstance().rotate(Rotation.LEAN_LEFT);
+            } else if (oPressed) {
+                Scene.getInstance().rotate(Rotation.LEAN_RIGHT);
+            } else if (rPressed) {
+                Renderer.getInstance().zoomIn();
+            } else if (fPressed) {
+                Renderer.getInstance().zoomOut();
+            } else {
+                return false;
+            }
+            return true;
         }
     }
 
