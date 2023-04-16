@@ -50,14 +50,14 @@ public class Scene {
 
     public void loadTrianglesDemo() {
         Point p1 = new Point(-20., 0., 30.);
-        Point p2 = new Point(-30., -30., 50.);
-        Point p3 = new Point(0., -40., 60.);
+        Point p2 = new Point(-30., -25., 50.);
+        Point p3 = new Point(0., -35., 60.);
         Point p4 = new Point(-20., -10., 30.);
-        Point p5 = new Point(-30., -40., 50.);
-        Point p6 = new Point(0., -50., 60.);
-        Point p7 = new Point(-20., -20., 30.);
-        Point p8 = new Point(-30., -50., 50.);
-        Point p9 = new Point(0., -60., 60.);
+        Point p5 = new Point(-30., -40., 60.);
+        Point p6 = new Point(0., -50., 70.);
+        Point p7 = new Point(-20., -15., 30.);
+        Point p8 = new Point(-30., -45., 50.);
+        Point p9 = new Point(0., -55., 60.);
         shapes.add(new Triangle(p1, p2, p3, Color.CYAN));
         shapes.add(new Triangle(p4, p5, p6, Color.MAGENTA));
         shapes.add(new Triangle(p7, p8, p9, Color.YELLOW));
