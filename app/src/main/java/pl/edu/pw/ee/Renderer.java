@@ -17,7 +17,7 @@ public class Renderer {
     private static final double MAX_FOV = Math.toRadians(120);
     private static final double ZOOM_INCREMENT = Math.toRadians(2);
     private static final double ROTATION_INCREMENT = Math.toRadians(2);
-    private static final double TRANSLATION_INCREMENT = 0.05;
+    private static final double TRANSLATION_INCREMENT = 0.5;
 
     private static Renderer instance = null;
 
